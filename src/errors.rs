@@ -22,7 +22,7 @@ pub enum Error {
 
     WSClientError {
         description: String,
-        cause: tungstenite::Error,
+        cause: tokio_tungstenite::tungstenite::Error,
     },
 
     SerializationError {
@@ -189,8 +189,8 @@ impl From<http::Error> for Error {
     }
 }
 
-impl From<tungstenite::Error> for Error {
-    fn from(tungstenite_error: tungstenite::Error) -> Self {
+impl From<tokio_tungstenite::tungstenite::Error> for Error {
+    fn from(tungstenite_error: tokio_tungstenite::tungstenite::Error) -> Self {
         Error::WSClientError {
             description: "HTTP request failed".to_string(),
             cause: tungstenite_error,
